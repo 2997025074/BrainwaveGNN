@@ -1,0 +1,48 @@
+# 设备配置
+device: "cuda:0"
+
+# 数据路径配置
+data_paths:
+  processed_data_dir: "data/processed"
+
+# 模型配置
+model:
+  reference_tr: 2.0
+  num_frequency_bands: 5
+  frequency_range: [0.008, 0.12]
+  time_windows: [11, 17, 29]
+  hidden_dims: [64, 128, 256]
+  dropout: 0.3
+  sparsity_threshold: 0.2
+  graph_feature_dim: 512
+  num_classes: 2  # 添加类别数配置
+
+# 训练配置
+training:
+  batch_size: 16
+  epochs: 100
+  learning_rate: 1e-4
+  weight_decay: 1e-5
+  optimizer: "adamw"
+  scheduler: "cosine"
+  patience: 15
+  min_delta: 1e-4
+  grad_clip: 1.0
+  warmup_epochs: 5
+  mixed_precision: false  # 暂时关闭混合精度
+  accumulation_steps: 1
+
+# 数据增强配置
+augmentation:
+  mixup:
+    enabled: true
+    alpha: 0.2
+    apply_probability: 0.8
+    label_smoothing: true
+
+# 数据配置
+data:
+  num_workers: 4
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
